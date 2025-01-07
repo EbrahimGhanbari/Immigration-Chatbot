@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  chatbot:
+    container_name: chatbot
+    image: chatbot
+    network_mode: host
+    restart: always
+
+
