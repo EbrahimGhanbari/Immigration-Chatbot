@@ -36,3 +36,14 @@ temporal_down:
 
 dev_down: temporal_down
 	$(DOCKER_COMPOSE_CMD) -f local-workers.yaml -p workers-server down 
+
+# Database migration targets
+.PHONY: migrate_up migrate_down migrate_list
+migrate_up:
+	./migrate.sh up
+
+migrate_down:
+	@echo "Please specify migration name: make migrate_down MIGRATION=migration_name"
+
+migrate_list:
+	./migrate.sh list 
