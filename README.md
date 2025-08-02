@@ -25,6 +25,8 @@ To clean the development environment you need to run. It will remove all the con
 * Temporal: All the codes related to temporal are in this folder. This includes, logger, activities, workflow and the worker. Workers eventually will be deployed through using docker images.
 * Services: The chatbot engine code 
 * Webserver: Here is the webserver that get the request to start the workflow
+* Migrations: Database migration files for schema changes and optimizations
+* Docs: Documentation for database optimizations and other technical details
 * In the main directory, there is Makefile which can later be used for CI/CD. Also, split the docker-compose to worker and temporal to make it easier to add workers later. Dockerfile is also added here.
 * Index.html is the simple interactive front end which has been created with the help of chatgpt.
 
@@ -34,6 +36,25 @@ You can also checkout the temporal frontend at: http://localhost:8080/ to see th
 
 ## Unit Test
 Right now only the chatbot engine (the new code logic) has unit test assuming the external lib already have their own unit tests. Run `make test` to run the unit test. Also when you do `make dev_up` the unit test already run. In development env you probably do not want to do run unit test for all the code base as it takes a long time to run. I just added that here for demo. For CI/CD it is a must.
+
+## Database Migrations
+The application includes database migration support for schema changes and optimizations. Use the migration script to apply or rollback database changes:
+
+```bash
+# Apply all migrations
+./migrate.sh up
+
+# Apply specific migration  
+./migrate.sh up 20241201120000_create_owner_change_indexes
+
+# Rollback specific migration
+./migrate.sh down 20241201120000_create_owner_change_indexes
+
+# List available migrations
+./migrate.sh list
+```
+
+For more details, see the [Database Index Optimization](docs/database_index_optimization.md) documentation.
 
 
 ## Improvement
